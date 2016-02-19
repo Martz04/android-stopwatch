@@ -3,5 +3,6 @@
     <string name="start_text_button">Start</string>
     <string name="stop_text_button">Stop</string>
     <string name="reset_text_button">Reset</string>
+    <string name="resume_text_button">Resume</string>
     <string name="action_settings">Settings</string>
 </resources>
