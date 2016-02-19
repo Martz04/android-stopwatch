@@ -8,8 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class StopWatchActivity extends AppCompatActivity {
+
+    private boolean isTimerStarted = false;
+
+    Button startButton;
+    Button stopButton;
+    TextView minutesLabel;
+    TextView secondsLabel;
+    TextView millisLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,12 @@ public class StopWatchActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        startButton = (Button)findViewById(R.id.start_button);
+        stopButton = (Button)findViewById(R.id.stop_button);
+        minutesLabel = (TextView) findViewById(R.id.minutes_label);
+        secondsLabel = (TextView) findViewById(R.id.seconds_label);
+        millisLabel = (TextView) findViewById(R.id.millis_label);
     }
 
     @Override
@@ -48,5 +64,28 @@ public class StopWatchActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startTimer(View view) {
+        toggleStartButton();
+    }
+
+
+
+    public void stopTimer(View view) {
+        isTimerStarted = true;
+        toggleStartButton();
+    }
+
+    private void toggleStartButton() {
+        if(!isTimerStarted) {
+            String resetText = getResources().getText(R.string.reset_text_button).toString();
+            startButton.setText(resetText);
+            isTimerStarted = true;
+        }else {
+            isTimerStarted = false;
+            String startText = getResources().getText(R.string.start_text_button).toString();
+            startButton.setText(startText);
+        }
     }
 }

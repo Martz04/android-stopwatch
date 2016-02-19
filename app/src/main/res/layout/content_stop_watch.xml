@@ -60,21 +60,23 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/start_button"
             android:layout_weight="1"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:onClick="startTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"/>
+            android:text="@string/start_text_button"/>
 
         <Button
+            android:id="@+id/stop_button"
             android:layout_weight="1"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:onClick="stopTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stop"/>
+            android:text="@string/stop_text_button"/>
     </LinearLayout>
 </RelativeLayout>
