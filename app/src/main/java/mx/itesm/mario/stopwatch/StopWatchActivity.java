@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class StopWatchActivity extends AppCompatActivity {
@@ -29,6 +33,8 @@ public class StopWatchActivity extends AppCompatActivity {
     private TextView secondsLabel;
     private TextView millisLabel;
 
+    private ListView listView;
+
     private long milliseconds;
     private long seconds;
     private long minutes;
@@ -37,6 +43,8 @@ public class StopWatchActivity extends AppCompatActivity {
     private long startTime;
     private long elapsedTime;
     private final int REFRESH_RATE = 10;
+    private List<String> timeList;
+    ArrayAdapter<String> adapter;
 
     private Runnable startTimerThread = new Runnable() {
         @Override
@@ -70,6 +78,11 @@ public class StopWatchActivity extends AppCompatActivity {
         minutesLabel = (TextView) findViewById(R.id.minutes_label);
         secondsLabel = (TextView) findViewById(R.id.seconds_label);
         millisLabel = (TextView) findViewById(R.id.millis_label);
+
+        timeList = new ArrayList<>();
+        listView = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, timeList);
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -96,6 +109,7 @@ public class StopWatchActivity extends AppCompatActivity {
 
     public void startTimer(View view) {
         if(isTimerStarted) {
+            addElapsedTimeToList();
             clearTimerLabels();
             mHandler.removeCallbacks(startTimerThread);
             isTimerStarted = false;
@@ -106,6 +120,21 @@ public class StopWatchActivity extends AppCompatActivity {
             mHandler.postDelayed(startTimerThread, 0);
         }
         toggleStartButton();
+    }
+
+    private void addElapsedTimeToList() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(hoursLabel.getText().toString());
+        builder.append(":");
+        builder.append(minutesLabel.getText().toString());
+        builder.append(":");
+        builder.append(secondsLabel.getText().toString());
+        builder.append(".");
+        builder.append(millisLabel.getText().toString());
+
+        String result = new String(builder);
+        timeList.add(result);
+        adapter.notifyDataSetChanged();
     }
 
     private void clearTimerLabels() {
@@ -150,11 +179,11 @@ public class StopWatchActivity extends AppCompatActivity {
         minutes = (long)((time/1000)/60);
         hours = (long) (((time/1000)/60)/60);
 
-        Log.d("update Timer", "time: " + time +
+        /*Log.d("update Timer", "time: " + time +
                 " millis: " + milliseconds +
                 " seconds: " + seconds +
                 " minutes: " + minutes +
-                " hours: " + hours);
+                " hours: " + hours); */
         if(milliseconds == 0) {
             millisLabel.setText("000");
         }else if(milliseconds < 100 && milliseconds > 0){

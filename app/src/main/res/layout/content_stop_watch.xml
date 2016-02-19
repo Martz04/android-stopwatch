@@ -64,6 +64,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/buttons_container"
         android:layout_marginTop="40dp"
         android:layout_below="@id/time_container"
         android:orientation="horizontal"
@@ -90,4 +91,17 @@
             android:layout_height="wrap_content"
             android:text="@string/stop_text_button"/>
     </LinearLayout>
+
+
+
+    <ListView
+        android:layout_margin="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/buttons_container"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
 </RelativeLayout>
